@@ -19,7 +19,6 @@ class CreateProjectsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('status')->default('Iniciado')->nullable();
-            $table->boolean('is_complete')->default(false);
 
             $table->timestamps();
         });
@@ -33,5 +32,4 @@ class CreateProjectsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('projects');
-    }
 }
