@@ -33,22 +33,22 @@ class ProjectController extends Controller
         return redirect()->back();
     }
 
-    public function show(Project $project)
+    public function show($id)
     {
         //
     }
 
-    public function edit(Project $project)
+    public function edit($id)
     {
         //
     }
 
-    public function update(Request $request, Project $project)
+    public function update(Request $request, $id)
     {
         //
     }
 
-    public function destroy(Project $project)
+    public function destroy($id)
     {
         //
     }
