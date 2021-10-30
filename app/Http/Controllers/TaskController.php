@@ -13,7 +13,7 @@ class TaskController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function index()
     {
         $tasks = Task::all();
@@ -26,7 +26,6 @@ class TaskController extends Controller
         return view('tasks.create');
     }
 
-    
     public function store(Request $request)
     {
         $task = new Task;
@@ -37,26 +36,25 @@ class TaskController extends Controller
         $task->is_complete = false;
         $task->project_id = $request->project_id;
 
+
         $task->save();
 
         Session::flash('exito', 'Se guardó correctamente tu tarea.');
 
-        if ($request->source == 'proyectos'){
-            return redirect()->route('proyectos.index');
-        } else{
-            return redirect()->route('tareas.index');
+        if($request->source == 'proyectos')
+        {
+           return redirect()->route('proyectos.index');
+        } else 
+        {
+           return redirect()->route('tareas.index'); 
         }
-
-        
     }
 
-    
     public function show($id)
     {
         //
     }
 
-    
     public function edit($id)
     {
         $task = Task::find($id);
@@ -66,7 +64,6 @@ class TaskController extends Controller
         return view('tasks.edit')->with('task', $task);
     }
 
-    
     public function update(Request $request, $id)
     {
         $task = Task::find($id);
@@ -92,7 +89,7 @@ class TaskController extends Controller
 
         return redirect()->back();
     }
-    
+
     public function destroy($id)
     {
         $task = Task::find($id);

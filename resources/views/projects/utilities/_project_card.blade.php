@@ -16,39 +16,35 @@
 	@endif
 
 	<div class="card-body">
+
 		<h5>{{ $project->name }}</h5>
 		<p>{{ $project->description }}</p>
 		<hr>
+
 		<a href="" data-toggle="modal" data-target="#modalCrearTarea_{{ $project->id }}" class="btn btn-outline-dark btn-sm mb-3">Crear Tarea</a>
 
+
 		@foreach($project->tasks as $task)
-		<div class="d-flex align-items-center justify-content-between">
-			<div style="width:60%;">
-			<p class="mb-0">{{ $task->title }}</p>
-			<p>Fecha: {{ $task->deadline }}</p>
-		    </div>
-
-		    <div>
-		    	@if($task->is_complete == false)
-                              <span class="badge badge-warning">Pendiente</span>
-                              @else
-                              <span class="badge badge-success">Completada</span>
-                              @endif
-                            </td>
-                            <td>
-                              @if($task->is_complete == false)
-                              <a href="{{ route('tareas.status', $task->id) }}" class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="top" title="Completar"><ion-icon name="checkbox-outline"></ion-icon></a>
-                              @endif
-                              <a href="{{ route('tareas.edit', $task->id) }}" class="btn btn-outline-info btn-sm" data-toggle="tooltip" data-placement="top" title="Editar"><ion-icon name="create-outline"></ion-icon></a>
-
-                              <form method="POST" style="display: inline-block;" action="{{ route('tareas.destroy', $task->id) }}">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
-
-                                <button type="submit" data-toggle="tooltip" data-placement="top" title="Borrar" class="btn btn-danger btn-sm"><ion-icon name="trash-outline"></ion-icon></button>
-                              </form>
-		    </div>
-		</div>
+			<div class="d-flex align-items-center justify-content-between">
+				<div style="width:60%;">
+					<p class="mb-0">{{ $task->title }}</p>
+					@if($task->is_complete == false)
+                      <span class="badge badge-warning">Pendiente</span>
+                      @else
+                      <span class="badge badge-success">Completada</span>
+                      @endif
+				</div>
+			<div>
+			@if($task->is_complete == false)
+                      <a href="{{ route('tareas.status', $task->id) }}" class="btn btn-outline-success btn-sm" data-toggle="tooltip" data-placement="top" title="Completar"><ion-icon name="checkbox-outline"></ion-icon></a>
+                      @endif
+                      <a href="{{ route('tareas.edit', $task->id) }}" class="btn btn-outline-info btn-sm" data-toggle="tooltip" data-placement="top" title="Editar"><ion-icon name="create-outline"></ion-icon></a>
+                      <form method="POST" style="display: inline-block;" action="{{ route('tareas.destroy', $task->id) }}">
+                          {{ csrf_field() }}
+                          {{ method_field('DELETE') }}
+                          <button type="submit" data-toggle="tooltip" data-placement="top" title="Borrar" class="btn btn-danger btn-sm"><ion-icon name="trash-outline"></ion-icon></button>
+            </div>
+            </div>
 		@endforeach
 		<hr>
 		
@@ -58,43 +54,44 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="modalCrearTarea" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalCrearTarea_{{ $project->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Crear Tarea</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <h5 class="modal-title" id="exampleModalLabel">Crear tarea</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
       </div>
-
-      <form method="POST" action="{{ route('tareas.store') }}">
+      <form method="POST" action="{{  route('tareas.store')  }}">
       <div class="modal-body">
-    		{{ csrf_field() }}
+        {{ csrf_field() }}
 
-    		<input type="hidden" name="source" value="proyectos" readonly="">
-    		<input type="hidden" name="project_id" value="{{ $project->id }}" readonly="">
+        <input type="hidden" name="source" value="proyectos" readonly="">
 
-    			<div class="form-group">
-    				<label>Titulo de tarea</label>
-    				<input type="text" name="title" class="form-control" required="">
-    			</div>
+        <input type="hidden" name="project_id" value="{{ $project->id }}" readonly="">
 
-    			<div class="form-group">
-    				<label>Fecha de entrega</label>
-    				<input type="date" name="deadline" class="form-control">
-    			</div>
+        <div class="form-group">
+			<label>Titulo de Tarea</label>
+			<input type="text" name="title" class="form-control" required="">
+		</div>
 
-    			<div class="form-group">
-    				<label>Descripción</label>
-    				<textarea class="form-control" name="description" rows="5"></textarea>
-    			</div>
+		<div class="form-group">
+			<label>Fecha de Entrega</label>
+			<input type="date" name="deadline" class="form-control">
+		</div>
+
+		<div class="form-group">
+			<label>Descripción</label>
+			<textarea class="form-control" name="description" rows="5"></textarea>
+		</div>
+
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar tarea</button>
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
       </div>
-      </form>
+
+     </form>
     </div>
   </div>
 </div>

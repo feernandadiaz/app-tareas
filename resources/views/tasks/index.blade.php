@@ -10,7 +10,7 @@
                 <div class="card-body">
                     <a href="{{ route('tareas.create') }}" class="btn btn-primary mb-3">Crear Nueva Tarea</a>
 
-                    <table class="table table-sm">
+                  <table class="table table-sm">
                       <thead>
                         <tr>
                           <th scope="col">#</th>

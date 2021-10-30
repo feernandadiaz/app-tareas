@@ -30,3 +30,4 @@ class AddProjectIdToTasksTable extends Migration
         });
     }
 }
+
